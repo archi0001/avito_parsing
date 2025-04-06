@@ -9,13 +9,17 @@ from aiogram.types import InlineKeyboardMarkup, KeyboardButton, InlineKeyboardBu
 
 
 logging.basicConfig(level=logging.INFO)
-tokenfile = open('/users/archi/documents/projects/avito/token.txt', 'r')
+tokenfile = open('token.txt', 'r')
 tokenn = tokenfile.readline()
 bot = Bot(tokenn)  # Замените на ваш токен
 dp = Dispatcher()
 
-dtb = open('/users/archi/documents/projects/avito/database.txt', 'r')
+dtb = open('database.txt', 'r')
 readdtb = dtb.readlines()
+readdtb_splitted = []
+for x in readdtb:
+    readdtb_splitted.append(x.split('context')[:1])
+# print(readdtb_splitted)
 # print(readdtb)
 
 # dtbw = open('/users/archi/documents/projects/avito/database.txt', 'w')
@@ -42,12 +46,19 @@ for link in all_links:
     i += 1
     i2 += 1
 
-if sorted_links == readdtb:
+sorted_links_splitted = []
+for x in sorted_links:
+    sorted_links_splitted.append(x.split('context')[:1])
+# print(sorted_links_splitted)
+
+if sorted(sorted_links_splitted) == sorted(readdtb_splitted):
     print('vsechetko')
 else:
-    with open('/users/archi/documents/projects/avito/database.txt', 'w') as dtbw:
+    print('Find new item!')
+    # print(sorted(sorted_links))
+    # print(sorted(readdtb))
+    with open('database.txt', 'w') as dtbw:
         for i in sorted_links:
-            print('sdfgh')
             dtbw.write(f"{i}\n")
 # i = 0
 # i2 = 0
